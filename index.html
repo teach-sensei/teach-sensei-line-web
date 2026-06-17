@@ -65,6 +65,10 @@
   <!-- ============ 提案ビュー ============ -->
   <div id="proposalView" class="hidden">
     <p class="lead">生徒のタイプと次にやることを選ぶと、そのまま送れるメッセージの下書きができます。コピーしてTeachアプリのメッセージに貼って、次回につなげましょう。</p>
+    <div class="card hidden" id="recents">
+      <label class="field">最近の生徒 <span class="hint">タップで生徒名・前回内容を自動入力</span></label>
+      <div class="chips" id="recentChips"></div>
+    </div>
     <div class="card">
       <label class="field">① どんな生徒へ？</label>
       <div class="chips" id="rel">
@@ -232,13 +236,38 @@ function gasFetch(payload){
 function logUsage(){
   gasFetch({action:"log",ts:new Date().toISOString(),userId:liffProfile?liffProfile.userId:"",displayName:liffProfile?liffProfile.displayName:"",rel:state.rel,type:state.type});
 }
+/* 最近の生徒チップ（自動入力）。連携済みのとき1回だけ取得 */
+var recentsLoaded=false;
+function loadRecents(){
+  if(recentsLoaded || !idToken) return;
+  recentsLoaded=true;
+  gasFetch({action:"lessons",idToken:idToken}).then(function(res){
+    if(!res||!res.lessons||!res.lessons.length) return;
+    var box=document.getElementById('recents'), wrap=document.getElementById('recentChips');
+    wrap.innerHTML="";
+    res.lessons.forEach(function(L){
+      var chip=document.createElement('span');
+      chip.className='chip';
+      chip.textContent=L.student+(L.subject?("・"+L.subject):"");
+      chip.addEventListener('click',function(){
+        document.getElementById('name').value=L.student;        // 生成時にwithHonorificで「さん」付与
+        if(L.subject) document.getElementById('prev').value=L.subject;
+        if(L.want) document.getElementById('next').value=L.want;
+        state.closer=0; render();
+        document.getElementById('out').scrollIntoView({behavior:'smooth',block:'center'});
+      });
+      wrap.appendChild(chip);
+    });
+    box.classList.remove('hidden');
+  });
+}
 /* checking / proposal / link の3画面を排他表示 */
 function showOnly(id){
   ['checking','proposalView','linkView'].forEach(function(x){
     var el=document.getElementById(x); if(el) el.classList.toggle('hidden', x!==id);
   });
 }
-function showProposal(){ GATE=false; showOnly('proposalView'); document.getElementById('title').textContent='次回提案サジェスト'; }
+function showProposal(){ GATE=false; showOnly('proposalView'); document.getElementById('title').textContent='次回提案サジェスト'; loadRecents(); }
 function showLink(gate){
   GATE=!!gate; showOnly('linkView'); document.getElementById('title').textContent='メール連携';
   var lead=document.querySelector('#linkForm .lead');

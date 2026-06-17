@@ -25,6 +25,7 @@
   .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:14px}
   label.field{display:block;font-size:13px;font-weight:700;margin:0 0 6px}
   .hint{font-size:12px;color:var(--sub);font-weight:400;margin-left:6px}
+  .subnote{font-size:11px;color:var(--sub);margin:-8px 2px 12px;line-height:1.5}
   .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
   .chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 13px;font-size:13px;cursor:pointer;user-select:none;transition:.15s}
   .chip[aria-pressed="true"]{background:var(--chip);border-color:var(--green);color:var(--green-d);font-weight:700}
@@ -103,7 +104,8 @@
       <input type="text" id="name" placeholder="生徒の呼び名（例：ゆうと）※自動で「さん」が付きます" />
       <input type="text" id="prev" placeholder="前回やった内容（例：二次関数のグラフ）" />
       <input type="text" id="next" placeholder="次回やる内容（例：二次方程式の解き方）" />
-      <input type="text" id="date" placeholder="候補日時（例：今週木曜20時〜）※日程提示のとき" />
+      <input type="text" id="date" placeholder="候補日時（例：今週木曜20時〜）" />
+      <div class="subnote">※「日程を提示」を選んだときに使います</div>
     </div>
     <button class="btn primary" id="gen">提案文をつくる</button>
     <div class="card" style="margin-top:14px">

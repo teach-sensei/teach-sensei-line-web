@@ -67,7 +67,10 @@
   .k-sumband .n{font-size:17px;font-weight:800;color:var(--green-d);text-align:center;line-height:1.1}
   .k-sumband .l{font-size:9.5px;color:var(--sub);text-align:center;margin-top:3px}
   .k-sect{font-size:11px;color:var(--sub);font-weight:700;margin:10px 2px 8px}
-  .k-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px;cursor:pointer;position:relative}
+  .k-hint{font-size:12px;color:var(--green-d);background:var(--chip);border-radius:10px;padding:9px 11px;margin:0 0 12px;font-weight:600}
+  .k-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px;cursor:pointer;position:relative;box-shadow:0 1px 3px rgba(20,50,38,.06)}
+  .k-card:active{background:#f3f8f5}
+  .k-more{margin-top:10px;padding-top:9px;border-top:1px solid var(--line);text-align:right;font-size:12px;font-weight:700;color:var(--green-d)}
   .k-cardtop{display:flex;align-items:center;gap:10px}
   .k-av{width:38px;height:38px;border-radius:50%;background:var(--chip);color:var(--green-d);font-weight:800;display:flex;align-items:center;justify-content:center;flex:0 0 auto;font-size:15px}
   .k-nm{font-weight:700;font-size:15px}
@@ -454,11 +457,11 @@ function renderKarteList(){
   var s=karteRes.summary||{};
   document.getElementById('kSum').innerHTML=
     kcell(s.lessonsTotal,'累計指導')+kcell(s.studentsTotal,'担当生徒')+
-    kcell((s.reviewAvg||0).toFixed?Number(s.reviewAvg).toFixed(1):s.reviewAvg,'レビュー平均')+kcell(s.followups,'累計フォロー');
+    kcell((s.reviewAvg||0).toFixed?Number(s.reviewAvg).toFixed(1):s.reviewAvg,'レビュー平均')+kcell(s.followups,'累計の声かけ');
   var studs=karteRes.students||[];
   var withNudge=studs.filter(function(x){return x.nextAction;});
   var rest=studs.filter(function(x){return !x.nextAction;});
-  var html='';
+  var html='<p class="k-hint">👆 生徒をタップすると、これまでの記録と次の一手が見られます。</p>';
   if(withNudge.length) html+='<div class="k-sect">🔔 次の一手がある生徒</div>'+withNudge.map(kcardHtml).join('');
   if(rest.length) html+='<div class="k-sect">😊 順調な生徒</div>'+rest.map(kcardHtml).join('');
   if(!studs.length) html='<div class="k-note">まだ担当の授業データがありません。</div>';
@@ -471,10 +474,10 @@ function kcardHtml(x){
   var when=x.lastDate?('前回 '+x.lastDate):'';
   var nudge=x.nextAction?('<div class="k-nudge '+x.status.tone+'">'+kesc(x.nextAction.title)+'</div>'):'';
   return '<div class="k-card" data-sid="'+kesc(x.studentId)+'">'
-    +'<span class="k-arrow">›</span>'
     +'<div class="k-cardtop"><div class="k-av">'+kesc(kinitial(x.name))+'</div>'
     +'<div style="flex:1"><div class="k-nm">'+kesc(x.name)+'</div><div class="k-meta">'+kesc(meta)+(meta&&when?'／':'')+kesc(when)+'</div></div>'
-    +'<span class="k-chip '+x.status.tone+'">'+kesc(x.status.chip)+'</span></div>'+nudge+'</div>';
+    +'<span class="k-chip '+x.status.tone+'">'+kesc(x.status.chip)+'</span></div>'+nudge
+    +'<div class="k-more">記録と次の一手を見る ›</div></div>';
 }
 
 function openStudent(sid){
@@ -548,7 +551,7 @@ function renderPerf(){
     +kmini((Number(p.reviewAvg)||0).toFixed(1)+rArrow,'レビュー平均（本人比）')
     +kmini(kesc(p.repeatRate||'-'),'継続率（再予約した生徒）')
     +kmini(p.studentsTotal||0,'これまで担当した生徒')
-    +kmini(p.followups||0,'累計フォロー送信')+'</div>';
+    +kmini(p.followups||0,'累計の声かけ')+'</div>';
   // 科目内訳
   if(p.subjectDist&&p.subjectDist.length){
     var smax=Math.max.apply(null,p.subjectDist.map(function(o){return o.count;}));
@@ -561,7 +564,7 @@ function renderPerf(){
     html+='<div class="k-bars"><div class="h">📈 月ごとの指導回数（あなたの推移）</div>'
       +p.monthly.map(function(o){return kbar(o.ym,o.count,mmax);}).join('')+'</div>';
   }
-  html+='<div class="k-note">💡 フォローの積み重ねは、いまの生徒の継続だけでなく、新しい生徒からも選ばれやすくなることにつながります。数字は他の先生との比較ではなく、あなた自身の積み上げです。</div>';
+  html+='<div class="k-note">💡 声かけの積み重ねは、いまの生徒の継続だけでなく、新しい生徒からも選ばれやすくなることにつながります。数字は他の先生との比較ではなく、あなた自身の積み上げです。</div>';
   box.innerHTML=html;
 }
 function kmini(n,l){return '<div class="k-mini"><div class="n">'+n+'</div><div class="l">'+kesc(l)+'</div></div>';}

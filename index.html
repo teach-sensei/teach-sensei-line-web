@@ -55,7 +55,64 @@
   .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#222;color:#fff;padding:10px 18px;border-radius:999px;font-size:14px;opacity:0;transition:.25s;pointer-events:none}
   .toast.show{opacity:1}
   .foot{font-size:11px;color:var(--sub);text-align:center;margin-top:18px}
+  .chiptoggle{display:flex;align-items:center;gap:8px;font-size:13px;margin:10px 2px 2px;cursor:pointer;font-weight:700}
+  .chiptoggle input{width:18px;height:18px;accent-color:var(--green)}
+  .matsub{font-size:12px;color:var(--sub);margin:2px 2px 8px}
   .hidden{display:none}
+  /* ===== 担当生徒カルテ ===== */
+  .k-tabbar{display:flex;gap:8px;margin:4px 0 14px}
+  .k-tab{flex:1;text-align:center;border:1px solid var(--line);background:#fff;border-radius:12px;padding:9px;font-size:13px;cursor:pointer;color:var(--sub);font-weight:700}
+  .k-tab.on{background:var(--chip);border-color:var(--green);color:var(--green-d)}
+  .k-sumband{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 6px;margin-bottom:12px}
+  .k-sumband .n{font-size:17px;font-weight:800;color:var(--green-d);text-align:center;line-height:1.1}
+  .k-sumband .l{font-size:9.5px;color:var(--sub);text-align:center;margin-top:3px}
+  .k-sect{font-size:11px;color:var(--sub);font-weight:700;margin:10px 2px 8px}
+  .k-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px;cursor:pointer;position:relative}
+  .k-cardtop{display:flex;align-items:center;gap:10px}
+  .k-av{width:38px;height:38px;border-radius:50%;background:var(--chip);color:var(--green-d);font-weight:800;display:flex;align-items:center;justify-content:center;flex:0 0 auto;font-size:15px}
+  .k-nm{font-weight:700;font-size:15px}
+  .k-meta{font-size:11px;color:var(--sub);margin-top:1px}
+  .k-chip{font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;white-space:nowrap}
+  .k-chip.ok{background:var(--chip);color:var(--green-d)}
+  .k-chip.warn{background:#fdf4e4;color:#b3781e}
+  .k-chip.alert{background:#fbeae5;color:#b0432b}
+  .k-nudge{margin-top:10px;font-size:12px;border-radius:9px;padding:7px 9px;font-weight:600;background:var(--chip);color:var(--green-d)}
+  .k-nudge.warn{background:#fdf4e4;color:#a86c17}
+  .k-nudge.alert{background:#fbeae5;color:#a83f26}
+  .k-arrow{position:absolute;right:12px;top:14px;color:#c3cec8}
+  .k-na{background:linear-gradient(135deg,var(--green),var(--green-d));color:#fff;border-radius:16px;padding:14px;margin-bottom:14px}
+  .k-na .kk{font-size:11px;opacity:.9;font-weight:700}
+  .k-na .hh{font-size:15px;font-weight:800;margin:5px 0 6px}
+  .k-na .ww{font-size:12px;line-height:1.5;opacity:.95}
+  .k-na .dd{background:rgba(255,255,255,.16);border-radius:10px;padding:9px 10px;font-size:12px;line-height:1.55;margin:10px 0}
+  .k-na .bb{background:#fff;color:var(--green-d);border:none;width:100%;padding:11px;border-radius:10px;font-weight:800;font-size:14px;cursor:pointer}
+  .k-hero{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px;display:flex;gap:12px;align-items:center}
+  .k-lesson{background:#fff;border:1px solid var(--line);border-radius:13px;padding:12px;margin-bottom:10px}
+  .k-date{font-size:11px;color:var(--sub);font-weight:700}
+  .k-badge{display:inline-block;font-size:11px;font-weight:700;color:var(--green-d);background:var(--chip);border-radius:6px;padding:2px 7px;margin:6px 6px 0 0}
+  .k-badge.sub{color:#8a746b;background:#f3ede8}
+  .k-lrow{font-size:12px;line-height:1.55;margin-top:8px}
+  .k-lrow .lb{color:var(--sub);font-weight:700;font-size:10.5px;display:block}
+  .k-stars{color:#e8a23a}
+  .k-none{font-size:11px;color:#b23c25;background:#fbeae5;border-radius:6px;padding:3px 7px;display:inline-block}
+  .k-prop{display:inline-block;font-size:11px;color:var(--green-d);background:var(--chip);border-radius:6px;padding:3px 7px}
+  .k-back{font-size:14px;color:var(--green-d);cursor:pointer;margin:0 0 10px;display:inline-block}
+  .k-big{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;text-align:center;margin-bottom:12px}
+  .k-big .n{font-size:32px;font-weight:900;color:var(--green-d)}
+  .k-big .l{font-size:12px;color:var(--sub);margin-top:6px}
+  .k-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+  .k-mini{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center}
+  .k-mini .n{font-size:20px;font-weight:800;color:var(--ink)}
+  .k-mini .l{font-size:10.5px;color:var(--sub);margin-top:3px}
+  .k-bars{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+  .k-bars .h{font-size:12px;font-weight:700;margin-bottom:12px}
+  .k-brow{display:flex;align-items:center;gap:8px;margin-bottom:9px;font-size:11px}
+  .k-brow .bl{width:66px;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .k-track{flex:1;height:9px;background:#eef2f0;border-radius:6px;overflow:hidden}
+  .k-fill{height:100%;background:var(--green);border-radius:6px}
+  .k-brow .bv{width:40px;text-align:right;font-weight:700;color:var(--green-d)}
+  .k-up{color:var(--green)}.k-dn{color:#d9694e}
+  .k-note{font-size:11px;color:var(--sub);background:#fff;border:1px dashed var(--line);border-radius:10px;padding:10px;line-height:1.5}
 </style>
 </head>
 <body>
@@ -107,6 +164,29 @@
       <input type="text" id="date" placeholder="候補日時（例：今週木曜20時〜）" />
       <div class="subnote">※空いている候補日時はできるだけ記入を。そのまま日程提示にも使えます。</div>
     </div>
+    <div class="card" id="matCard">
+      <label class="field">教材から提案する <span class="hint">任意・選ぶと下書きに教材を添えます</span></label>
+      <p class="matsub">「もし教材が未定なら、これで進められます」と具体的に示せます。生徒が自分の教材を持っている場合にも対応します。</p>
+      <label class="field" style="font-size:12px;color:var(--sub)">区分</label>
+      <div class="chips" id="matSeg"></div>
+      <div id="matGradeWrap" class="hidden">
+        <label class="field" style="font-size:12px;color:var(--sub)">学年</label>
+        <div class="chips" id="matGrade"></div>
+      </div>
+      <div id="matSubjectWrap" class="hidden">
+        <label class="field" style="font-size:12px;color:var(--sub)">科目・つまずき</label>
+        <div class="chips" id="matSubject"></div>
+      </div>
+      <div id="matCandWrap" class="hidden">
+        <p class="matsub" id="matPain"></p>
+        <label class="field" style="font-size:12px;color:var(--sub)">基礎固め</label>
+        <div class="chips" id="matBasic"></div>
+        <label class="field" style="font-size:12px;color:var(--sub)">標準〜入試</label>
+        <div class="chips" id="matStandard"></div>
+        <label class="chiptoggle"><input type="checkbox" id="matOwn" /> 生徒が自分の教材を持っている（その教材を主軸にする）</label>
+        <button class="btn ghost" id="matClear" style="margin-top:10px">教材の選択をクリア</button>
+      </div>
+    </div>
     <button class="btn primary" id="gen">提案文をつくる</button>
     <div class="card" style="margin-top:14px">
       <label class="field">メッセージの下書き <span class="hint">そのまま編集できます</span></label>
@@ -136,6 +216,23 @@
       <h2>連携を受け付けました</h2>
       <p>授業に合わせたお知らせが届くようになります。</p>
     </div>
+  </div>
+
+  <!-- ============ 担当生徒カルテ ============ -->
+  <div id="karteView" class="hidden">
+    <div class="k-tabbar" id="kTabbar">
+      <div class="k-tab on" data-k="list">担当生徒</div>
+      <div class="k-tab" data-k="perf">わたしの実績</div>
+    </div>
+    <div id="kList">
+      <div class="k-sumband" id="kSum"></div>
+      <div id="kStudents"><p class="lead">読み込み中…</p></div>
+    </div>
+    <div id="kDetail" class="hidden">
+      <span class="k-back" id="kBack">‹ 生徒一覧へ</span>
+      <div id="kDetailBody"></div>
+    </div>
+    <div id="kPerf" class="hidden"><p class="lead">読み込み中…</p></div>
   </div>
 
   <p class="foot">Teach 先生サポート</p>
@@ -168,7 +265,7 @@ var GREET = {
   recent:   function(n){ return n+"先日は授業、おつかれさまでした。"; },
   gap:      function(n){ return n+"しばらく授業が空いてしまいましたが、その後いかがでしょうか。"; },
   favorite: function(n){ return n+"お気に入りに登録してくれてありがとうございます。"; },
-  offer:    function(n){ return n+"はじめまして。プロフィールを見て、よければ一度ご一緒できたらと思いご連絡しました。"; }
+  offer:    function(n){ return n+"はじめまして。よかったら一度、一緒に勉強できたらと思ってご連絡しました。"; }
 };
 function offerBody(next){
   return next ? "もしよければ、"+next+"を中心に、一緒に勉強を進めてみませんか。目標やペースに合わせて進めます。"
@@ -196,7 +293,9 @@ function cta(type, date){
            : "ご都合の良いタイミングを教えていただければ、それに合わせて日程を調整します。";
 }
 var CLOSERS = ["無理のない範囲で、気軽にお返事ください。","引き続き、しっかりサポートしていきますね。","一緒に進めていけたら嬉しいです。"];
-var state = { rel:"recent", type:"continue", closer:0, mode:"proposal" };
+var state = { rel:"recent", type:"continue", closer:0, mode:"proposal",
+  segCode:"", segLabel:"", grade:"", subject:"", materialBasic:"", materialStandard:"", matOwn:false };
+var SESSION_ID = Date.now().toString(36)+Math.random().toString(36).slice(2,7);
 
 /* 呼び捨て防止：敬称が無ければ自動で「さん」を付ける（さん/くん/君/ちゃん/様/さま 等は尊重） */
 function withHonorific(raw){
@@ -204,6 +303,13 @@ function withHonorific(raw){
   if(!s) return "";
   if(/(さん|くん|君|ちゃん|ちゃま|様|さま|氏|先生)$/.test(s)) return s;
   return s+"さん";
+}
+function hasMaterial(){ return !!(state.materialBasic||state.materialStandard||state.matOwn); }
+function materialLine(){
+  if(state.matOwn) return "使いたい教材がもう決まっていれば、それを主軸に進めます。進める順番や解き直しのやり方は、私が一緒に組み立てます。";
+  var picks=[state.materialBasic,state.materialStandard].filter(Boolean);
+  if(!picks.length) return "";
+  return "もし教材がまだ決まっていなければ、"+picks.join("、")+"あたりを使って進める方法をご提案できます。すでに決めているものがあれば、それを一緒に進めても大丈夫です。";
 }
 function buildText(){
   var name=withHonorific(document.getElementById('name').value);
@@ -213,7 +319,7 @@ function buildText(){
   var date=(document.getElementById('date').value||"").trim();
   var isOffer=(state.rel==='favorite'||state.rel==='offer');
   var b=isOffer?offerBody(next):body(state.type,prev,next);
-  return [GREET[state.rel](n),b,cta(state.type,date),CLOSERS[state.closer%CLOSERS.length]].filter(Boolean).join("\n");
+  return [GREET[state.rel](n),b,materialLine(),cta(state.type,date),CLOSERS[state.closer%CLOSERS.length]].filter(Boolean).join("\n");
 }
 function bindChips(id,key){
   var g=document.getElementById(id);
@@ -302,13 +408,13 @@ function applyMode(mode){
   if(isOffer) rec.classList.add('hidden');
   else if(recentsHasData) rec.classList.remove('hidden');
 }
-/* checking / proposal / link の3画面を排他表示 */
+/* checking / proposal / link / karte の画面を排他表示 */
 function showOnly(id){
-  ['checking','proposalView','linkView'].forEach(function(x){
+  ['checking','proposalView','linkView','karteView'].forEach(function(x){
     var el=document.getElementById(x); if(el) el.classList.toggle('hidden', x!==id);
   });
 }
-function showProposal(){ GATE=false; showOnly('proposalView'); document.getElementById('title').textContent='次回提案サジェスト'; loadRecents(); }
+function showProposal(){ GATE=false; showOnly('proposalView'); document.getElementById('title').textContent='次回提案サジェスト'; loadRecents(); loadSegments(); logMat('open'); }
 function showLink(gate){
   GATE=!!gate; showOnly('linkView'); document.getElementById('title').textContent='メール連携';
   var lead=document.querySelector('#linkForm .lead');
@@ -316,6 +422,150 @@ function showLink(gate){
     ? '提案文サジェストを使うには、最初にTeachに登録しているメールアドレスで連携してください。連携すると、あなたの授業に合わせた下書きやお知らせが届くようになります。'
     : 'Teachに登録しているメールアドレスを入力すると、あなたの授業に合わせたお知らせや、次回提案の下書きが受け取れるようになります。';
 }
+
+/* ================= 担当生徒カルテ ================= */
+var karteRes=null, perfRes=null, karteLoaded=false, perfLoaded=false;
+function kesc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function kescMl(s){return kesc(s).replace(/\n/g,'<br>');}
+function kinitial(nm){nm=String(nm||'');return nm?nm.charAt(0):'?';}
+
+function showKarte(){ showOnly('karteView'); document.getElementById('title').textContent='担当生徒カルテ'; karteTab('list'); loadKarte(); }
+
+function karteTab(which){
+  document.querySelectorAll('#kTabbar .k-tab').forEach(function(t){t.classList.toggle('on',t.dataset.k===which);});
+  document.getElementById('kDetail').classList.add('hidden');
+  document.getElementById('kList').classList.toggle('hidden', which!=='list');
+  document.getElementById('kPerf').classList.toggle('hidden', which!=='perf');
+  if(which==='perf') loadPerf();
+}
+
+function loadKarte(){
+  if(karteLoaded){ renderKarteList(); return; }
+  gasFetch({action:'karte',idToken:idToken}).then(function(res){
+    karteLoaded=true;
+    var box=document.getElementById('kStudents');
+    if(!res||!res.ok){ box.innerHTML='<div class="k-note">読み込みに失敗しました。時間をおいて再度お試しください。</div>'; return; }
+    if(!res.linked){ box.innerHTML='<div class="k-note">先にメール連携をすると、担当している生徒のカルテが表示されます。</div>'; document.getElementById('kSum').innerHTML=''; return; }
+    karteRes=res; renderKarteList();
+  });
+}
+
+function renderKarteList(){
+  var s=karteRes.summary||{};
+  document.getElementById('kSum').innerHTML=
+    kcell(s.lessonsTotal,'累計指導')+kcell(s.studentsTotal,'担当生徒')+
+    kcell((s.reviewAvg||0).toFixed?Number(s.reviewAvg).toFixed(1):s.reviewAvg,'レビュー平均')+kcell(s.followups,'累計フォロー');
+  var studs=karteRes.students||[];
+  var withNudge=studs.filter(function(x){return x.nextAction;});
+  var rest=studs.filter(function(x){return !x.nextAction;});
+  var html='';
+  if(withNudge.length) html+='<div class="k-sect">🔔 次の一手がある生徒</div>'+withNudge.map(kcardHtml).join('');
+  if(rest.length) html+='<div class="k-sect">😊 順調な生徒</div>'+rest.map(kcardHtml).join('');
+  if(!studs.length) html='<div class="k-note">まだ担当の授業データがありません。</div>';
+  var box=document.getElementById('kStudents'); box.innerHTML=html;
+  box.querySelectorAll('.k-card').forEach(function(c){ c.addEventListener('click',function(){ openStudent(c.dataset.sid); }); });
+}
+function kcell(n,l){return '<div><div class="n">'+kesc(n==null?'-':n)+'</div><div class="l">'+kesc(l)+'</div></div>';}
+function kcardHtml(x){
+  var meta=[x.grade,x.lastSubject].filter(Boolean).join('・');
+  var when=x.lastDate?('前回 '+x.lastDate):'';
+  var nudge=x.nextAction?('<div class="k-nudge '+x.status.tone+'">'+kesc(x.nextAction.title)+'</div>'):'';
+  return '<div class="k-card" data-sid="'+kesc(x.studentId)+'">'
+    +'<span class="k-arrow">›</span>'
+    +'<div class="k-cardtop"><div class="k-av">'+kesc(kinitial(x.name))+'</div>'
+    +'<div style="flex:1"><div class="k-nm">'+kesc(x.name)+'</div><div class="k-meta">'+kesc(meta)+(meta&&when?'／':'')+kesc(when)+'</div></div>'
+    +'<span class="k-chip '+x.status.tone+'">'+kesc(x.status.chip)+'</span></div>'+nudge+'</div>';
+}
+
+function openStudent(sid){
+  var stu=(karteRes.students||[]).filter(function(x){return String(x.studentId)===String(sid);})[0];
+  if(!stu) return;
+  var na=stu.nextAction;
+  var naHtml=na?('<div class="k-na"><div class="kk">NEXT ACTION ― 次の一手</div><div class="hh">'+kesc(na.title)+'</div>'
+    +'<div class="ww">'+kesc(na.why)+'</div><div class="dd">💬 下書き：'+kesc(na.draft)+'</div>'
+    +'<button class="bb" id="kDraftBtn">この内容で下書きをつくる →</button></div>'):'';
+  var hero='<div class="k-hero"><div class="k-av" style="width:48px;height:48px;font-size:18px">'+kesc(kinitial(stu.name))+'</div>'
+    +'<div><div class="k-nm" style="font-size:18px">'+kesc(stu.name)+'</div><div class="k-meta">'+kesc([stu.grade,stu.lastSubject].filter(Boolean).join('・'))+'</div></div></div>';
+  var hist=(stu.history||[]).map(lessonHtml).join('');
+  document.getElementById('kDetailBody').innerHTML=hero+naHtml+'<div class="k-sect">🕒 指導の記録（'+(stu.lessonCount||0)+'回）</div>'+(hist||'<div class="k-note">記録がありません。</div>');
+  document.getElementById('kList').classList.add('hidden');
+  document.getElementById('kPerf').classList.add('hidden');
+  document.getElementById('kDetail').classList.remove('hidden');
+  window.scrollTo(0,0);
+  var db=document.getElementById('kDraftBtn');
+  if(db) db.addEventListener('click',function(){ prefillProposalFromKarte(stu.name, stu.lastSubject); });
+}
+function lessonHtml(l){
+  var badges='<span class="k-badge">'+kesc(l.subject||'')+'</span>';
+  if(l.lessonType) badges+='<span class="k-badge sub">'+kesc(l.lessonType)+'</span>';
+  if(l.duration) badges+='<span class="k-badge sub">'+kesc(l.duration)+'分</span>';
+  if(l.isUpcoming) badges+='<span class="k-badge">予約済</span>';
+  var rows='';
+  if(l.request) rows+=lrow('生徒からの依頼',kescMl(l.request));
+  if(l.want) rows+=lrow('生徒が学びたいこと',kescMl(l.want));
+  if(l.teacherNote) rows+=lrow('先生の授業記録',kescMl(l.teacherNote));
+  if(l.reviewScore) rows+=lrow('生徒レビュー','<span class="k-stars">'+stars(l.reviewScore)+'</span> '+kesc(l.reviewComment||''));
+  if(l.nextProposal) rows+=lrow('次回提案','<span class="k-prop">'+kescMl(l.nextProposal)+'</span>');
+  else if(!l.isUpcoming) rows+=lrow('次回提案','<span class="k-none">未記入 ← ネクストアクション対象</span>');
+  return '<div class="k-lesson"><div class="k-date">'+kesc(l.date)+'</div>'+badges+rows+'</div>';
+}
+function lrow(lb,val){return '<div class="k-lrow"><span class="lb">'+kesc(lb)+'</span>'+val+'</div>';}
+function stars(score){var n=Math.round(Number(score)||0);return '★★★★★'.slice(0,n)+'☆☆☆☆☆'.slice(0,5-n);}
+
+function prefillProposalFromKarte(student, subject){
+  showProposal();
+  applyMode('proposal');
+  document.getElementById('name').value=student||'';
+  if(subject) document.getElementById('prev').value=subject;
+  state.closer=0; render();
+  window.scrollTo(0,0);
+  showToast('提案づくりに引き継ぎました');
+}
+
+function loadPerf(){
+  var box=document.getElementById('kPerf');
+  if(perfLoaded){ return; }
+  gasFetch({action:'perf',idToken:idToken}).then(function(res){
+    perfLoaded=true;
+    if(!res||!res.ok){ box.innerHTML='<div class="k-note">読み込みに失敗しました。</div>'; return; }
+    if(!res.linked){ box.innerHTML='<div class="k-note">先にメール連携をすると表示されます。</div>'; return; }
+    perfRes=res; renderPerf();
+  });
+}
+function renderPerf(){
+  var p=perfRes.perf||{}; var box=document.getElementById('kPerf');
+  if(perfRes.isNew){
+    box.innerHTML='<div class="k-big"><div class="n">'+(p.studentsTotal||0)+'</div><div class="l">担当している生徒</div></div>'
+      +'<div class="k-note">これからの積み上げがここに表示されます。授業を重ねると、指導回数・レビュー・継続率が見えるようになります。</div>';
+    return;
+  }
+  var delta=p.lessonsDelta||0;
+  var deltaHtml=delta?(' <span class="'+(delta>0?'k-up':'k-dn')+'">'+(delta>0?'+':'')+delta+'</span>'):'';
+  var rDelta=p.reviewDelta||0;
+  var rArrow=rDelta>0?' <span class="k-up">▲'+rDelta.toFixed(1)+'</span>':(rDelta<0?' <span class="k-dn">▼'+Math.abs(rDelta).toFixed(1)+'</span>':'');
+  var html='<div class="k-big"><div class="n">'+(p.lessonsTotal||0)+'<span style="font-size:14px"> 回</span></div><div class="l">累計 指導回数（当月 '+(p.lessonsThisMonth||0)+'回'+deltaHtml+'）</div></div>';
+  html+='<div class="k-grid">'
+    +kmini((Number(p.reviewAvg)||0).toFixed(1)+rArrow,'レビュー平均（本人比）')
+    +kmini(kesc(p.repeatRate||'-'),'継続率（再予約した生徒）')
+    +kmini(p.studentsTotal||0,'これまで担当した生徒')
+    +kmini(p.followups||0,'累計フォロー送信')+'</div>';
+  // 科目内訳
+  if(p.subjectDist&&p.subjectDist.length){
+    var smax=Math.max.apply(null,p.subjectDist.map(function(o){return o.count;}));
+    html+='<div class="k-bars"><div class="h">📚 指導した科目の内訳</div>'
+      +p.subjectDist.slice(0,6).map(function(o){return kbar(o.label,o.count,smax);}).join('')+'</div>';
+  }
+  // 月別
+  if(p.monthly&&p.monthly.length){
+    var mmax=Math.max.apply(null,p.monthly.map(function(o){return o.count;}));
+    html+='<div class="k-bars"><div class="h">📈 月ごとの指導回数（あなたの推移）</div>'
+      +p.monthly.map(function(o){return kbar(o.ym,o.count,mmax);}).join('')+'</div>';
+  }
+  html+='<div class="k-note">💡 フォローの積み重ねは、いまの生徒の継続だけでなく、新しい生徒からも選ばれやすくなることにつながります。数字は他の先生との比較ではなく、あなた自身の積み上げです。</div>';
+  box.innerHTML=html;
+}
+function kmini(n,l){return '<div class="k-mini"><div class="n">'+n+'</div><div class="l">'+kesc(l)+'</div></div>';}
+function kbar(label,val,max){var w=max?Math.round(100*val/max):0;return '<div class="k-brow"><span class="bl">'+kesc(label)+'</span><span class="k-track"><span class="k-fill" style="width:'+w+'%"></span></span><span class="bv">'+kesc(val)+'</span></div>';}
 
 /* ---- 連携 ---- */
 var idToken=null;
@@ -329,7 +579,7 @@ function submitLink(){
   gasFetch({action:"link",idToken:idToken,email:email}).then(function(res){
     if(res&&res.ok){
       linked=true; linkedEmail=email;
-      if(GATE){ showProposal(); showToast("連携しました"); }
+      if(GATE){ if(MODE==='karte'){ showKarte(); } else { showProposal(); } showToast("連携しました"); }
       else{
         document.getElementById('linkForm').style.display="none";
         document.getElementById('linkDone').style.display="block";
@@ -345,15 +595,98 @@ function submitLink(){
   });
 }
 
+/* ---- 教材サジェスト ---- */
+function matApi(params){ return gasFetch(Object.assign({action:'materials'},params)).then(function(r){return (r&&r.ok)?r.data:null;}); }
+function logMat(event){
+  gasFetch({action:'matlog',session_id:SESSION_ID,ts:new Date().toISOString(),
+    userId:liffProfile?liffProfile.userId:"",displayName:liffProfile?liffProfile.displayName:"",
+    mode:state.mode,event:event,seg:state.segCode,grade:state.grade,subject:state.subject,
+    material_basic:state.materialBasic,material_standard:state.materialStandard,
+    own_flag:state.matOwn,has_schedule:!!(document.getElementById('date').value||"").trim()});
+}
+function makeChip(text,cb){var s=document.createElement('span');s.className='chip';s.textContent=text;s.addEventListener('click',function(){cb(s);});return s;}
+function selectOne(box,el){box.querySelectorAll('.chip').forEach(function(x){x.setAttribute('aria-pressed','false');});el.setAttribute('aria-pressed','true');}
+function pickToggle(box,el,setVal,clearVal){
+  var was=el.getAttribute('aria-pressed')==='true';
+  box.querySelectorAll('.chip').forEach(function(x){x.setAttribute('aria-pressed','false');});
+  if(was){clearVal();}else{el.setAttribute('aria-pressed','true');setVal();}
+  render();
+}
+function clearChips(id){var b=document.getElementById(id);if(b)b.innerHTML="";}
+function hideEl(id){document.getElementById(id).classList.add('hidden');}
+function showEl(id){document.getElementById(id).classList.remove('hidden');}
+var matSegLoaded=false;
+function loadSegments(){
+  if(matSegLoaded) return; matSegLoaded=true;
+  var box=document.getElementById('matSeg'); box.innerHTML='<span class="matsub">読み込み中…</span>';
+  matApi({}).then(function(list){
+    box.innerHTML=""; if(!list){box.innerHTML='<span class="matsub">読み込みに失敗しました</span>';matSegLoaded=false;return;}
+    list.forEach(function(s){ box.appendChild(makeChip(s.segment,function(el){
+      selectOne(box,el); state.segCode=s.seg_code; state.segLabel=s.segment; onSeg(); })); });
+  });
+}
+function onSeg(){
+  state.grade="";state.subject="";state.materialBasic="";state.materialStandard="";
+  hideEl('matSubjectWrap');hideEl('matCandWrap');clearChips('matSubject');
+  showEl('matGradeWrap');
+  var box=document.getElementById('matGrade');box.innerHTML='<span class="matsub">読み込み中…</span>';
+  matApi({seg:state.segCode}).then(function(list){
+    box.innerHTML="";(list||[]).forEach(function(g){box.appendChild(makeChip(g,function(el){
+      selectOne(box,el);state.grade=g;onGrade();}));});
+  });
+  render();
+}
+function onGrade(){
+  state.subject="";state.materialBasic="";state.materialStandard="";
+  hideEl('matCandWrap');
+  showEl('matSubjectWrap');
+  var box=document.getElementById('matSubject');box.innerHTML='<span class="matsub">読み込み中…</span>';
+  matApi({seg:state.segCode,grade:state.grade}).then(function(list){
+    box.innerHTML="";(list||[]).forEach(function(sj){box.appendChild(makeChip(sj,function(el){
+      selectOne(box,el);onSubject(sj);}));});
+  });
+  render();
+}
+function onSubject(sj){
+  state.subject=sj;state.materialBasic="";state.materialStandard="";
+  logMat('material_select');
+  showEl('matCandWrap');
+  var bb=document.getElementById('matBasic'),sb=document.getElementById('matStandard');
+  bb.innerHTML='<span class="matsub">読み込み中…</span>';sb.innerHTML="";
+  document.getElementById('matOwn').checked=false;state.matOwn=false;
+  matApi({seg:state.segCode,grade:state.grade,subject:sj}).then(function(c){
+    if(!c){bb.innerHTML='<span class="matsub">候補が見つかりませんでした</span>';return;}
+    document.getElementById('matPain').textContent=c.pain?('つまずき例：'+c.pain):'';
+    bb.innerHTML="";(c.basic||[]).forEach(function(m){bb.appendChild(makeChip(m,function(el){
+      pickToggle(bb,el,function(){state.materialBasic=m;},function(){state.materialBasic="";});}));});
+    sb.innerHTML="";(c.standard||[]).forEach(function(m){sb.appendChild(makeChip(m,function(el){
+      pickToggle(sb,el,function(){state.materialStandard=m;},function(){state.materialStandard="";});}));});
+    render();
+  });
+}
+function clearMaterial(){
+  state.segCode="";state.segLabel="";state.grade="";state.subject="";state.materialBasic="";state.materialStandard="";state.matOwn=false;
+  var seg=document.getElementById('matSeg');if(seg)seg.querySelectorAll('.chip').forEach(function(x){x.setAttribute('aria-pressed','false');});
+  hideEl('matGradeWrap');hideEl('matSubjectWrap');hideEl('matCandWrap');
+  clearChips('matGrade');clearChips('matSubject');clearChips('matBasic');clearChips('matStandard');
+  document.getElementById('matOwn').checked=false;
+  render();
+}
+function initMaterials(){
+  document.getElementById('matOwn').addEventListener('change',function(){state.matOwn=this.checked;render();});
+  document.getElementById('matClear').addEventListener('click',clearMaterial);
+}
+
 /* ---- 画面切替＆イベント ---- */
 function initProposal(){
   bindChips('rel','rel');bindChips('type','type');
   document.querySelectorAll('#modeToggle .seg').forEach(function(b){ b.addEventListener('click',function(){ applyMode(b.dataset.mode); }); });
   applyMode('proposal');
-  document.getElementById('gen').addEventListener('click',function(){state.closer=0;render();logUsage();});
+  document.getElementById('gen').addEventListener('click',function(){state.closer=0;render();logUsage();if(hasMaterial())logMat('generate');});
   document.getElementById('regen').addEventListener('click',function(){state.closer++;render();});
-  document.getElementById('copy').addEventListener('click',function(){copyText().then(function(ok){if(ok)showToast("コピーしました");});});
-  document.getElementById('copyopen').addEventListener('click',function(){copyText().then(function(ok){if(!ok)return;showToast("コピーしました。アプリを開きます");setTimeout(openApp,600);});});
+  document.getElementById('copy').addEventListener('click',function(){copyText().then(function(ok){if(ok){showToast("コピーしました");if(hasMaterial())logMat('copy');}});});
+  document.getElementById('copyopen').addEventListener('click',function(){copyText().then(function(ok){if(!ok)return;if(hasMaterial())logMat('copy');showToast("コピーしました。アプリを開きます");setTimeout(openApp,600);});});
+  initMaterials();
   if(!CONFIG.APP_LINK){var co=document.getElementById('copyopen');if(co)co.style.display='none';var c2=document.getElementById('copy');if(c2){c2.classList.remove('ghost');c2.classList.add('primary');c2.textContent='コピー';}}
 }
 function initLink(){
@@ -361,13 +694,25 @@ function initLink(){
   document.getElementById('email').addEventListener('keydown',function(e){if(e.key==="Enter")submitLink();});
 }
 
-/* ハンドラは両方用意しておく（画面の出し分けは afterStatus で行う） */
+function initKarte(){
+  document.querySelectorAll('#kTabbar .k-tab').forEach(function(t){ t.addEventListener('click',function(){ karteTab(t.dataset.k); }); });
+  var back=document.getElementById('kBack');
+  if(back) back.addEventListener('click',function(){ document.getElementById('kDetail').classList.add('hidden'); karteTab('list'); });
+}
+
+/* ハンドラは用意しておく（画面の出し分けは afterStatus で行う） */
 initProposal();
 initLink();
+initKarte();
 showOnly('checking');   // 連携状態を確認するまでロック
 
 /* 連携状態の確認が終わったら画面を決める */
 function afterStatus(){
+  if(MODE==='karte'){
+    if(linked){ showKarte(); }
+    else{ showLink(true); }   // 未連携ならまず連携ゲート→連携後にカルテへ
+    return;
+  }
   if(MODE==='link'){
     if(linked){
       showOnly('linkView');

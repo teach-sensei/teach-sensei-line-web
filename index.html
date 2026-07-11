@@ -618,6 +618,7 @@ function submitLink(){
   var email=(document.getElementById('email').value||"").trim();
   var err=document.getElementById('err');
   if(!isEmail(email)){err.textContent="メールアドレスの形式を確認してください。";return;}
+  if(!idToken){err.textContent="読み込み中です。数秒おいて、もう一度お試しください。";return;}
   err.textContent="";
   var btn=document.getElementById('submitLink');btn.disabled=true;btn.textContent="連携中…";
   gasFetch({action:"link",idToken:idToken,email:email}).then(function(res){
@@ -780,8 +781,9 @@ function afterStatus(){
 
 /* ---- LIFF 初期化 ＋ 連携状態チェック ---- */
 (function initLiff(){
-  // カルテモードは開いた瞬間にタイトルを合わせておく（読み込み中に「次回提案サジェスト」と出ないように）
+  // 開いた瞬間に、そのモードの画面を出しておく（「次回提案サジェスト」のまま読み込み中…が出るのを防ぐ）
   if(MODE==='karte'){ document.getElementById('title').textContent='担当生徒カルテ'; }
+  if(MODE==='link'){ showLink(false); }   // 連携フォームを即表示。連携済みかどうかは裏で確認して切替
   if(!CONFIG.LIFF_ID||typeof liff==="undefined"){ if(MODE==='karte'){ showKarte(); } else { afterStatus(); } return; }
   liff.init({liffId:CONFIG.LIFF_ID}).then(function(){
     try{ idToken=liff.getIDToken(); }catch(e){}

@@ -134,6 +134,7 @@
 
   <!-- ============ 提案ビュー ============ -->
   <div id="proposalView" class="hidden">
+    <span class="k-back" id="toKarteBack" style="display:none">‹ 担当生徒カルテに戻る</span>
     <p class="lead">送る相手を選ぶと、そのまま送れるメッセージの下書きができます。コピーしてTeachアプリのメッセージへ。</p>
     <div class="modeseg" id="modeToggle">
       <button class="seg active" type="button" data-mode="proposal"><b>次回の提案</b><small>教えている生徒へ</small></button>
@@ -420,7 +421,7 @@ function showOnly(id){
     var el=document.getElementById(x); if(el) el.classList.toggle('hidden', x!==id);
   });
 }
-function showProposal(){ GATE=false; showOnly('proposalView'); document.getElementById('title').textContent='次回提案サジェスト'; loadRecents(); loadSegments(); logMat('open'); }
+function showProposal(){ GATE=false; showOnly('proposalView'); document.getElementById('title').textContent='次回提案サジェスト'; var _bk=document.getElementById('toKarteBack'); if(_bk) _bk.style.display='none'; loadRecents(); loadSegments(); logMat('open'); }
 function showLink(gate){
   GATE=!!gate; showOnly('linkView'); document.getElementById('title').textContent='メール連携';
   var lead=document.querySelector('#linkForm .lead');
@@ -434,6 +435,8 @@ var karteRes=null, perfRes=null, karteLoaded=false, perfLoaded=false;
 function kesc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
 function kescMl(s){return kesc(s).replace(/\n/g,'<br>');}
 function kinitial(nm){nm=String(nm||'');return nm?nm.charAt(0):'?';}
+/* 科目名から学年の括弧を外す：理科(小)→理科 ／ 数学(中)→数学 ／ 英語(高)→英語。(中受)や数学ⅠA等はそのまま */
+function kSubj(s){return String(s==null?'':s).replace(/[（(](小|中|高)[)）]/g,'');}
 
 function showKarte(){ showOnly('karteView'); document.getElementById('title').textContent='担当生徒カルテ'; karteTab('list'); loadKarte(); }
 
@@ -464,7 +467,7 @@ function renderKarteList(){
   var withNudge=studs.filter(function(x){return x.nextAction;});
   var rest=studs.filter(function(x){return !x.nextAction;});
   var html='<div class="k-offer" id="kOfferBtn"><span>🆕 はじめての生徒へオファーを送るときはこちら</span><span class="ar">›</span></div>';
-  html+='<p class="k-hint">👆 教えている生徒は、タップで記録と次の一手が見られます。</p>';
+  html+='<p class="k-hint">👇 教えている生徒は、タップで記録と次の一手が見られます。</p>';
   if(withNudge.length) html+='<div class="k-sect">🔔 次の一手がある生徒</div>'+withNudge.map(kcardHtml).join('');
   if(rest.length) html+='<div class="k-sect">😊 順調な生徒</div>'+rest.map(kcardHtml).join('');
   if(!studs.length) html='<div class="k-note">まだ担当の授業データがありません。</div>';
@@ -477,13 +480,14 @@ function goOffer(){
   showProposal();
   applyMode('offer');
   document.getElementById('title').textContent='はじめてのオファー';
+  showKarteBack_();
   window.scrollTo(0,0);
 }
 function kcell(n,l){return '<div><div class="n">'+kesc(n==null?'-':n)+'</div><div class="l">'+kesc(l)+'</div></div>';}
 function kcardHtml(x){
-  var meta=[x.grade,x.lastSubject].filter(Boolean).join('・');
+  var meta=[x.grade,kSubj(x.lastSubject)].filter(Boolean).join('・');
   var when=x.lastDate?('前回 '+x.lastDate):'';
-  var nudge=x.nextAction?('<div class="k-nudge '+x.status.tone+'">'+kesc(x.nextAction.title)+'</div>'):'';
+  var nudge=x.nextAction?('<div class="k-nudge '+x.status.tone+'">'+kSubj(kesc(x.nextAction.title))+'</div>'):'';
   return '<div class="k-card" data-sid="'+kesc(x.studentId)+'">'
     +'<div class="k-cardtop"><div class="k-av">'+kesc(kinitial(x.name))+'</div>'
     +'<div style="flex:1"><div class="k-nm">'+kesc(x.name)+'</div><div class="k-meta">'+kesc(meta)+(meta&&when?'／':'')+kesc(when)+'</div></div>'
@@ -495,11 +499,11 @@ function openStudent(sid){
   var stu=(karteRes.students||[]).filter(function(x){return String(x.studentId)===String(sid);})[0];
   if(!stu) return;
   var na=stu.nextAction;
-  var naHtml=na?('<div class="k-na"><div class="kk">NEXT ACTION ― 次の一手</div><div class="hh">'+kesc(na.title)+'</div>'
-    +'<div class="ww">'+kesc(na.why)+'</div><div class="dd">💬 下書き：'+kesc(na.draft)+'</div>'
+  var naHtml=na?('<div class="k-na"><div class="kk">NEXT ACTION ― 次の一手</div><div class="hh">'+kSubj(kesc(na.title))+'</div>'
+    +'<div class="ww">'+kSubj(kesc(na.why))+'</div><div class="dd">💬 下書き：'+kSubj(kesc(na.draft))+'</div>'
     +'<button class="bb" id="kDraftBtn">この内容で下書きをつくる →</button></div>'):'';
   var hero='<div class="k-hero"><div class="k-av" style="width:48px;height:48px;font-size:18px">'+kesc(kinitial(stu.name))+'</div>'
-    +'<div><div class="k-nm" style="font-size:18px">'+kesc(stu.name)+'</div><div class="k-meta">'+kesc([stu.grade,stu.lastSubject].filter(Boolean).join('・'))+'</div></div></div>';
+    +'<div><div class="k-nm" style="font-size:18px">'+kesc(stu.name)+'</div><div class="k-meta">'+kSubj(kesc([stu.grade,stu.lastSubject].filter(Boolean).join('・')))+'</div></div></div>';
   var hist=(stu.history||[]).map(lessonHtml).join('');
   document.getElementById('kDetailBody').innerHTML=hero+naHtml+'<div class="k-sect">🕒 指導の記録（'+(stu.lessonCount||0)+'回）</div>'+(hist||'<div class="k-note">記録がありません。</div>');
   document.getElementById('kList').classList.add('hidden');
@@ -510,7 +514,7 @@ function openStudent(sid){
   if(db) db.addEventListener('click',function(){ prefillProposalFromKarte(stu.name, stu.lastSubject); });
 }
 function lessonHtml(l){
-  var badges='<span class="k-badge">'+kesc(l.subject||'')+'</span>';
+  var badges='<span class="k-badge">'+kSubj(kesc(l.subject||''))+'</span>';
   if(l.lessonType) badges+='<span class="k-badge sub">'+kesc(l.lessonType)+'</span>';
   if(l.duration) badges+='<span class="k-badge sub">'+kesc(l.duration)+'分</span>';
   if(l.isUpcoming) badges+='<span class="k-badge">予約済</span>';
@@ -530,11 +534,13 @@ function prefillProposalFromKarte(student, subject){
   showProposal();
   applyMode('proposal');
   document.getElementById('name').value=student||'';
-  if(subject) document.getElementById('prev').value=subject;
+  if(subject) document.getElementById('prev').value=kSubj(subject);
   state.closer=0; render();
+  showKarteBack_();
   window.scrollTo(0,0);
   showToast('提案づくりに引き継ぎました');
 }
+function showKarteBack_(){ var b=document.getElementById('toKarteBack'); if(b) b.style.display='inline-block'; }
 
 function loadPerf(){
   if(perfLoaded && perfRes){ return; }
@@ -566,7 +572,7 @@ function renderPerf(){
   if(p.subjectDist&&p.subjectDist.length){
     var smax=Math.max.apply(null,p.subjectDist.map(function(o){return o.count;}));
     html+='<div class="k-bars"><div class="h">📚 指導した科目の内訳</div>'
-      +p.subjectDist.slice(0,6).map(function(o){return kbar(o.label,o.count,smax);}).join('')+'</div>';
+      +p.subjectDist.slice(0,6).map(function(o){return kbar(kSubj(o.label),o.count,smax);}).join('')+'</div>';
   }
   // 月別
   if(p.monthly&&p.monthly.length){
@@ -711,6 +717,8 @@ function initKarte(){
   document.querySelectorAll('#kTabbar .k-tab').forEach(function(t){ t.addEventListener('click',function(){ karteTab(t.dataset.k); }); });
   var back=document.getElementById('kBack');
   if(back) back.addEventListener('click',function(){ document.getElementById('kDetail').classList.add('hidden'); karteTab('list'); });
+  var tk=document.getElementById('toKarteBack');
+  if(tk) tk.addEventListener('click',function(){ showKarte(); });
 }
 
 /* ハンドラは用意しておく（画面の出し分けは afterStatus で行う） */

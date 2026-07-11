@@ -484,10 +484,35 @@ function goOffer(){
   window.scrollTo(0,0);
 }
 function kcell(n,l){return '<div><div class="n">'+kesc(n==null?'-':n)+'</div><div class="l">'+kesc(l)+'</div></div>';}
+/* 次の一手の文面はWeb側で組み立てる（GAS再デプロイ不要で微調整できる）。typeは getKarte が返す */
+function buildNA(stu){
+  var t=stu.nextAction&&stu.nextAction.type;
+  if(!t) return null;
+  var nm=withHonorific(stu.name);
+  var subj=kSubj(stu.lastSubject)||'前回の内容';
+  var d=stu.daysSince;
+  if(t==='propose') return {
+    title:'次回提案を送りましょう',
+    why:'前回の'+subj+'に対して次回提案が未記入です。続きの単元で提案すると予約につながりやすいです。',
+    draft:nm+'、先日の'+subj+'おつかれさまでした。次回は続きの単元に進みましょう。ご都合のよい日時はありますか？'
+  };
+  if(t==='reconnect') return {
+    title:'久しぶりの声かけ',
+    why:'前回の授業から'+(d||'')+'日空いています。声かけをして、もう一度授業してみましょう。',
+    draft:nm+'、お久しぶりです。その後の学習はいかがですか？よければ'+subj+'の続きから、もう一度一緒に進めませんか。'
+  };
+  if(t==='follow') return {
+    title:'授業のあと、ひとこと送りましょう',
+    why:'授業のあとのひとこと声かけを今のうちに送ると、次回予約につながりやすいです。',
+    draft:nm+'、先日の'+subj+'おつかれさまでした。今日の復習ポイントを送りますね。次回もこの調子で進めましょう。'
+  };
+  return null;
+}
 function kcardHtml(x){
   var meta=[x.grade,kSubj(x.lastSubject)].filter(Boolean).join('・');
   var when=x.lastDate?('前回 '+x.lastDate):'';
-  var nudge=x.nextAction?('<div class="k-nudge '+x.status.tone+'">'+kSubj(kesc(x.nextAction.title))+'</div>'):'';
+  var na0=buildNA(x);
+  var nudge=na0?('<div class="k-nudge '+x.status.tone+'">'+kesc(na0.title)+'</div>'):'';
   return '<div class="k-card" data-sid="'+kesc(x.studentId)+'">'
     +'<div class="k-cardtop"><div class="k-av">'+kesc(kinitial(x.name))+'</div>'
     +'<div style="flex:1"><div class="k-nm">'+kesc(x.name)+'</div><div class="k-meta">'+kesc(meta)+(meta&&when?'／':'')+kesc(when)+'</div></div>'
@@ -498,9 +523,9 @@ function kcardHtml(x){
 function openStudent(sid){
   var stu=(karteRes.students||[]).filter(function(x){return String(x.studentId)===String(sid);})[0];
   if(!stu) return;
-  var na=stu.nextAction;
-  var naHtml=na?('<div class="k-na"><div class="kk">NEXT ACTION ― 次の一手</div><div class="hh">'+kSubj(kesc(na.title))+'</div>'
-    +'<div class="ww">'+kSubj(kesc(na.why))+'</div><div class="dd">💬 下書き：'+kSubj(kesc(na.draft))+'</div>'
+  var na=buildNA(stu);
+  var naHtml=na?('<div class="k-na"><div class="kk">NEXT ACTION ― 次の一手</div><div class="hh">'+kesc(na.title)+'</div>'
+    +'<div class="ww">'+kesc(na.why)+'</div><div class="dd">💬 下書き：'+kesc(na.draft)+'</div>'
     +'<button class="bb" id="kDraftBtn">この内容で下書きをつくる →</button></div>'):'';
   var hero='<div class="k-hero"><div class="k-av" style="width:48px;height:48px;font-size:18px">'+kesc(kinitial(stu.name))+'</div>'
     +'<div><div class="k-nm" style="font-size:18px">'+kesc(stu.name)+'</div><div class="k-meta">'+kSubj(kesc([stu.grade,stu.lastSubject].filter(Boolean).join('・')))+'</div></div></div>';

@@ -730,9 +730,62 @@ function initProposal(){
   document.getElementById('gen').addEventListener('click',function(){state.closer=0;render();logUsage();if(hasMaterial())logMat('generate');});
   document.getElementById('regen').addEventListener('click',function(){state.closer++;render();});
   document.getElementById('copy').addEventListener('click',function(){copyText().then(function(ok){if(ok){showToast("コピーしました");if(hasMaterial())logMat('copy');}});});
-  document.getElementById('copyopen').addEventListener('click',function(){copyText().then(function(ok){if(!ok)return;if(hasMaterial())logMat('copy');showToast("コピーしました。アプリを開きます");setTimeout(openApp,600);});});
+  document.getElementById('copyopen').addEventListener('click',function(){copyText().then(function(ok){if(!ok)return;if(hasMaterial())logMat('copy');if(PREFILL_SRC==='callout')logCallout('copy');showToast("コピーしました。アプリを開きます");setTimeout(openApp,600);});});
   initMaterials();
   if(!CONFIG.APP_LINK){var co=document.getElementById('copyopen');if(co)co.style.display='none';var c2=document.getElementById('copy');if(c2){c2.classList.remove('ghost');c2.classList.add('primary');c2.textContent='コピー';}}
+  applyPrefill();
+}
+
+/* ---- 声かけリスト(LINEカード)からの自動入力 ----
+   Code_callout.gs が ?page=proposal&name=◯◯&prev=◯◯&rel=recent&type=continue&src=callout で開く。
+   先生が「探す・思い出す・打ち込む」手間をゼロにして、開いた瞬間に下書きが出ている状態にする。 */
+function getParams(){
+  try{
+    var q=new URLSearchParams(location.search);
+    var st=q.get('liff.state');
+    if(st){ var inner=new URLSearchParams(st.charAt(0)==='?'?st.slice(1):st); if(inner.get('name')||inner.get('src')) return inner; }
+    return q;
+  }catch(e){ return new URLSearchParams(''); }
+}
+function applyPrefill(){
+  var q=getParams();
+  var name=q.get('name'), prev=q.get('prev');
+  if(!name && !prev) return;                       // 通常起動時は何もしない
+  if(name){ var el=document.getElementById('name'); if(el) el.value=name; }
+  if(prev){ var ep=document.getElementById('prev'); if(ep) ep.value=prev; }
+  var rel=q.get('rel'), type=q.get('type');
+  if(rel) setChip('rel',rel);
+  if(type) setChip('type',type);
+  state.closer=0;
+  render();                                        // 開いた時点で下書きを出しておく
+  PREFILL_SRC=q.get('src')||'';
+  PREFILL_STAGE=q.get('stage')||'';
+  if(PREFILL_SRC==='callout'){ PREFILL_SID=q.get('sid')||''; logCalloutOpenWhenReady_(); }
+}
+/* initProposal はLIFF初期化より先に走るので、この時点では idToken がまだ無い。
+   取れてから open を送る（取れなくても最後は送って、計測を落とさない）。 */
+function logCalloutOpenWhenReady_(){
+  var tries=0;
+  (function wait(){
+    if(idToken || tries++>20){ logCallout('open'); return; }
+    setTimeout(wait,150);
+  })();
+}
+/* チップUIを外から選択状態にする（クリックと同じ見た目・stateに揃える） */
+function setChip(key,val){
+  var wrap=document.getElementById(key); if(!wrap) return;
+  wrap.querySelectorAll('.chip').forEach(function(c){
+    var on=(c.dataset.v===val);
+    c.setAttribute('aria-pressed',on?'true':'false');
+    if(on) state[key]=val;
+  });
+}
+var PREFILL_SRC='', PREFILL_SID='', PREFILL_STAGE='';
+/* 計測: カード経由で開いた／下書きをコピーしたを callout_action に残す（行動率で見るため） */
+function logCallout(event){
+  try{
+    gasFetch({action:'callout_log',idToken:idToken,event:event,studentId:PREFILL_SID,stage:PREFILL_STAGE,sessionId:SESSION_ID});
+  }catch(e){}
 }
 function initLink(){
   document.getElementById('submitLink').addEventListener('click',submitLink);
